@@ -9028,3 +9028,8 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+canvas[resize] {
+    width: 100%;
+    height: 100%;
+}

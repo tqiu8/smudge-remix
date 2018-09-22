@@ -1,31 +1,16 @@
-var values = {
-    paths: 50,
-    minPoints: 5,
-    maxPoints: 15,
-    minRadius: 30,
-    maxRadius: 90
-};
-
-var hitOptions = {
-    segments: true,
-    stroke: false,
-    fill: true,
-    tolerance: 5
-};
-
 var x_random = Math.random()
 var y_random = Math.random()
 
-var headMovement = headDisturbance(x_random, y_random)
-var neckMovement = createMovement(headMovement, [-50, 200], [-20, 150])
-var chestMovement = createMovement(neckMovement, [-120, 100], [-50, 130])
-var rightForeMovement = createMovement(chestMovement, [10, 150], [-70, 180])
-var leftForeMovement = createMovement(chestMovement, [-20, 30], [-50, 180])
-var bodyMovement = createMovement(chestMovement, [-150, 300], [0, 150])
-var haunchesMovement = createMovement(bodyMovement, [-170, 230], [-10, 10])
-var rightBackMovement = createMovement(haunchesMovement, [-100, 50], [-20, 200])
-var leftBackMovement = createMovement(haunchesMovement, [-100, 50], [-20, 200])
-var tailMovement = createMovement(haunchesMovement, [-50, 50], [-50, 50])
+var headMovement = headDisturbance(x_random, y_random) 
+var neckMovement = createMovement(headMovement, [-70, 150], [-10, 70])
+var chestMovement = createMovement(neckMovement, [-80, 180], [-20, 50])
+var rightForeMovement = createMovement(chestMovement, [7, 30], [-60, 140])
+var leftForeMovement = createMovement(chestMovement, [-20, 30], [-60, 140])
+var bodyMovement = createMovement(chestMovement, [-20, 150], [0, 90])
+var haunchesMovement = createMovement(bodyMovement, [-40, 150], [-40, 80])
+var rightBackMovement = createMovement(haunchesMovement, [-90, 80], [-40, 80])
+var leftBackMovement = createMovement(haunchesMovement, [-30, 20], [-14, 80])
+var tailMovement = createMovement(haunchesMovement, [-70, 70], [-70, 70])
 
 console.log(neckMovement)
 
@@ -41,7 +26,7 @@ var neckPath = createNeck();
 
 
 //head 
-var path = createHead() 
+var path = createHead(); 
 var earPath = createEar();
 var nosePath = createNose();
 var meatballPath = createMeatball();
@@ -54,15 +39,20 @@ var head = [path, earPath, nosePath, meatballPath, rightEyePath,
     leftEyePath, rightIrisPath, leftIrisPath]
     
 addDisturbance(head, headMovement)
-neckPath.position += neckMovement
-chestPath.position += chestMovement
-rightForelegPath.position += rightForeMovement
+neckPath.position += neckMovement 
+chestPath.position += chestMovement 
+rightForelegPath.position += rightForeMovement 
 leftForelegPath.position += leftForeMovement
 bodyPath.position += bodyMovement
 haunchesPath.position += haunchesMovement 
-rightHindPath.position += rightBackMovement
-leftHindPath.position += leftBackMovement
+rightHindPath.position += rightBackMovement 
+leftHindPath.position += leftBackMovement 
 tailPath.position += tailMovement
+
+var body = new Group([tailPath, rightHindPath, leftHindPath, haunchesPath, bodyPath, 
+    chestPath, rightForelegPath, leftForelegPath, neckPath, path, earPath, nosePath, 
+    meatballPath, rightEyePath, rightIrisPath, leftEyePath, leftIrisPath])
+body.scale(0.5)
 
 //earPath = disturbPath(earPath)
 //nosePath = disturbPath(nosePath, 40)
@@ -76,22 +66,22 @@ tailPath.position += tailMovement
 
 
 function onFrame(event){
-    chestPath = wiggle(chestPath, event, 3, -10)
-    neckPath = wiggle(neckPath, event, 2, 10)
-    bodyPath = wiggle(bodyPath, event, 1, -20)
-    earPath = wiggle(earPath, event, 2, 9)
-    haunchePath = wiggle(haunchesPath, event, 1, 20)
-    leftEyePath = wiggle(leftEyePath, event, 4, 20)
-    rightEyePath = wiggle(rightEyePath, event, 5, 20)
+    chestPath = wiggle(chestPath, event, 4, -18)
+    neckPath = wiggle(neckPath, event, 4, 20)
+    bodyPath = wiggle(bodyPath, event, 4, -20)
+    earPath = wiggle(earPath, event, 4, 30)
+    haunchePath = wiggle(haunchesPath, event, 4, 24)
+    //leftEyePath = wiggle(leftEyePath, event, 4, 20)
+    //rightEyePath = wiggle(rightEyePath, event, 5, 20)
     //leftIrisPath = wiggle(leftIrisPath, event, 8, 200)
     //rightIrisPath = wiggle(rightIrisPath, event, 8, 200)
-    path = wiggle(path, event, 1, 10)
-    rightForelegPath = wiggle(rightForelegPath, event, 4, 10)
-    leftForelegPath = wiggle(leftForelegPath, event, 4, 10)
-    rightHindPath = wiggle(rightHindPath, event, 4, 20)
-    leftHindPath = wiggle(leftHindPath, event, 4, 15)
-    tailPath = wiggle(tailPath, event,1, 4)
-    meatballPath = wiggle(meatballPath, event, 4, 200)
+    path = wiggle(path, event, 4, 10)
+    rightForelegPath = wiggle(rightForelegPath, event, 5, 10)
+    leftForelegPath = wiggle(leftForelegPath, event, 5, 10)
+    rightHindPath = wiggle(rightHindPath, event, 5, 20)
+    leftHindPath = wiggle(leftHindPath, event, 5, 15)
+    tailPath = wiggle(tailPath, event,3, 14)
+    meatballPath = wiggle(meatballPath, event, 5, 15)
 }
 
 
@@ -145,8 +135,8 @@ function createMovement(part, x_range, y_range) {
 
 
 function headDisturbance(x, y){
-    var new_x = 900/4 + (x*900/2)
-    var new_y = 530/4 - (y*530/2)
+    var new_x = 200/4 + (x*90/4)
+    var new_y = -150 - (200*y)
     return new Point(new_x, new_y)
 }
 
