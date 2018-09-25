@@ -136,7 +136,7 @@ function createMovement(part, x_range, y_range) {
 
 function headDisturbance(x, y){
     var new_x = -200 + (x*850)
-    var new_y = -320 + (110*y)
+    var new_y = -380 + (100*y)
     return new Point(new_x, new_y)
 }
 
