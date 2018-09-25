@@ -23,11 +23,13 @@
 
     
     <script>
-      var txt = ''
+      var txt =
+       ''
       var i=0
       function typeWriter() {
-
         if (i < txt.length) {
+          console.log('i ', i)
+          console.log('text length ', txt.length)
           document.getElementById("feelings").innerHTML += txt.charAt(i);
           i++;
           setTimeout(typeWriter, 50);
@@ -51,16 +53,16 @@
       function dog_talking() {
           console.log('talk')
           
-          var i = 0;
           var speed = 50; /* The speed/duration of the effect in milliseconds */
           var random = Math.floor(Math.random()*(feelings.length-1))
           var feeling = feelings[random]['text']
           var color = getRandomColor();
-          console.log(feeling);
           txt = feeling;
+          i = 0
+          $('#feelings').text('');
           typeWriter()
             
-            $('#feelings').css('color', color);
+          $('#feelings').css('color', color);
           return false;
         };
 
