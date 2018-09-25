@@ -24,8 +24,9 @@
     
     <script>
       var txt = ''
-
+      var i=0
       function typeWriter() {
+
         if (i < txt.length) {
           document.getElementById("feelings").innerHTML += txt.charAt(i);
           i++;
@@ -41,22 +42,36 @@
         }
         return color;
       }
-      var feelings = [];
-      var i = 0;
-      var speed = 50; /* The speed/duration of the effect in milliseconds */
 
-      $.getJSON("feelings.json", function (data) {
-        //$.each(data, function (index, value) {
-        feelings = JSON.parse(JSON.stringify(data));
-        var random = Math.floor(Math.random()*(feelings.length-1))
-        var feeling = feelings[random]['text']
-        var color = getRandomColor();
-        console.log(feeling);
-        txt = feeling;
-        typeWriter()
-        
-        $('#feelings').css('color', color);
-    });
+      function dog_talking() {
+          console.log('talk')
+          var feelings = [];
+          var i = 0;
+          var speed = 50; /* The speed/duration of the effect in milliseconds */
+
+          $.getJSON("feelings.json", function (data) {
+            //$.each(data, function (index, value) {
+            feelings = JSON.parse(JSON.stringify(data));
+            var random = Math.floor(Math.random()*(feelings.length-1))
+            var feeling = feelings[random]['text']
+            var color = getRandomColor();
+            console.log(feeling);
+            txt = feeling;
+            typeWriter()
+            
+            $('#feelings').css('color', color);
+          });
+          return false;
+        };
+
+
+    function entsub(event, ourform) {
+      if (window.event && window.event.keyCode == 13) {
+        console.log('entered')
+      } else {
+        return true;
+      }
+    }
     </script>
   </head>
 
@@ -64,11 +79,22 @@
 
     <!-- Page Content -->
     <div class="container">
-      <h1 style="margin: 20px;">gooooob morning</h1>
-      <div class="offset-4 col-sm-8">
+      <h1 style="margin-bottom: 20px; margin-top: 20px">gooooob morning</h1>
+      <div class="row">
+      <div class="col-sm-4">
+         <h4>well, how are you feeling? </h4>
+        <form action='#'>
+          <textarea name="how are you feeling" rows="3" cols="30"></textarea><br>
+          <input type="button" onclick="dog_talking();" value="submit"/>
+        </form>
+
+      </div>
+      <div class="col-sm-8">
 
         <h4 id="feelings"></h4>
       </div>
+    </div>
+  </div>
       <canvas id="myCanvas" resize="true" width=100% height=70% style='position: absolute;'></canvas>
     </div>
 
