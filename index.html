@@ -43,24 +43,24 @@
         return color;
       }
 
+      var feelings = [];
+      $.getJSON("feelings-2.json", function (data) {
+            feelings = JSON.parse(JSON.stringify(data));
+          });
+
       function dog_talking() {
           console.log('talk')
-          var feelings = [];
+          
           var i = 0;
           var speed = 50; /* The speed/duration of the effect in milliseconds */
-
-          $.getJSON("feelings.json", function (data) {
-            //$.each(data, function (index, value) {
-            feelings = JSON.parse(JSON.stringify(data));
-            var random = Math.floor(Math.random()*(feelings.length-1))
-            var feeling = feelings[random]['text']
-            var color = getRandomColor();
-            console.log(feeling);
-            txt = feeling;
-            typeWriter()
+          var random = Math.floor(Math.random()*(feelings.length-1))
+          var feeling = feelings[random]['text']
+          var color = getRandomColor();
+          console.log(feeling);
+          txt = feeling;
+          typeWriter()
             
             $('#feelings').css('color', color);
-          });
           return false;
         };
 
